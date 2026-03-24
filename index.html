@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weekly Logbook</title>
+  <meta name="description" content="A personal weekly logbook to track daily activities, tasks, images and videos by week number." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-layout" id="appLayout">
+
+    <!-- ── Mobile Top Bar (visible only on mobile) ── -->
+    <header class="mobile-topbar" id="mobileTopbar">
+      <div class="mobile-topbar-logo">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+        </svg>
+        <span>Weekly Logbook</span>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+        <button class="new-week-btn" id="mobileNewWeekBtn" title="New logbook" style="width:32px;height:32px">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- ── Sidebar backdrop (mobile overlay dimmer) ── -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+    <!-- ── Sidebar ── -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+          </svg>
+          <span class="sidebar-title">Logbook</span>
+        </div>
+        <button class="new-week-btn" id="newWeekBtn" title="Create new logbook">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+        </button>
+      </div>
+
+      <nav class="sidebar-nav" id="sidebarNav">
+        <!-- Home link -->
+        <div class="nav-item nav-home active" id="navHomeItem" data-view="home">
+          <div class="nav-item-left">
+            <span class="nav-item-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+              </svg>
+            </span>
+            <span class="nav-item-label">Home</span>
+          </div>
+        </div>
+
+        <div class="sidebar-section-label">My Logbooks</div>
+
+        <div class="empty-state-sidebar hidden" id="emptySidebarState">
+          <p>No logbooks yet.</p>
+        </div>
+        <!-- Week items injected here -->
+      </nav>
+    </aside>
+
+    <!-- ── Pill Toggle ── -->
+    <button class="sidebar-toggle" id="sidebarToggle" title="Toggle sidebar" aria-label="Toggle sidebar">
+      <svg class="toggle-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+    </button>
+
+    <!-- ── Main Content ── -->
+    <main class="main-content" id="mainContent">
+
+      <!-- HOME VIEW -->
+      <div class="view" id="homeView">
+        <div class="home-hero">
+          <div class="home-hero-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+            </svg>
+          </div>
+          <div>
+            <h1 class="home-title">Weekly Logbook</h1>
+            <p class="home-subtitle">Track your weekly activities, one day at a time.</p>
+          </div>
+          <button class="btn-primary home-create-btn" id="homeCreateBtn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            New Logbook
+          </button>
+        </div>
+
+        <!-- Stats bar -->
+        <div class="stats-bar" id="statsBar">
+          <div class="stat-card">
+            <div class="stat-value" id="statTotal">0</div>
+            <div class="stat-label">Total Weeks</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="statEntries">0</div>
+            <div class="stat-label">Days Logged</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="statMedia">0</div>
+            <div class="stat-label">Media Files</div>
+          </div>
+        </div>
+
+        <!-- Logbook Cards Grid -->
+        <div class="section-label">All Logbooks</div>
+        <div class="logbook-cards-grid" id="logbookCardsGrid">
+          <!-- Injected by JS -->
+        </div>
+
+        <!-- Empty home state -->
+        <div class="home-empty hidden" id="homeEmpty">
+          <div class="home-empty-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+            </svg>
+          </div>
+          <h3>No logbooks yet</h3>
+          <p>Create your first weekly logbook to get started.</p>
+          <button class="btn-primary" id="emptyCreateBtn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            Create First Logbook
+          </button>
+        </div>
+      </div>
+
+      <!-- LOGBOOK VIEW -->
+      <div class="view hidden" id="logbookView">
+        <div class="logbook-header">
+          <div class="logbook-breadcrumb">
+            <button class="breadcrumb-link" id="backHomeBtn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+              </svg>
+              Home
+            </button>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="breadcrumb-sep">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+            <span class="breadcrumb-current" id="breadcrumbWeek">Week 1</span>
+          </div>
+
+          <div class="logbook-title-row">
+            <div class="logbook-week-badge" id="logbookWeekBadge">Week 1</div>
+            <h2 class="logbook-heading">Weekly Activity Report</h2>
+          </div>
+        </div>
+
+        <div class="days-grid" id="daysGrid"></div>
+
+        <!-- Save bar at bottom -->
+        <div class="save-bar">
+          <div class="save-bar-hint">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            Changes are not saved automatically
+          </div>
+          <button class="btn-save" id="saveBtn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+              <polyline points="17 21 17 13 7 13 7 21"/>
+              <polyline points="7 3 7 8 15 8"/>
+            </svg>
+            Save Logbook
+          </button>
+        </div>
+
+        <!-- Weekly Summary Panel -->
+        <div class="summary-panel" id="summaryPanel">
+          <div class="summary-header">
+            <div class="summary-title-row">
+              <div class="summary-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/>
+                  <line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/>
+                  <line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
+                </svg>
+              </div>
+              <div>
+                <div class="summary-title">Weekly Summary</div>
+                <div class="summary-subtitle">Auto-compiled from all daily entries</div>
+              </div>
+            </div>
+            <div class="summary-actions">
+              <button class="btn-ghost summary-btn" id="generateSummaryBtn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.51"/>
+                </svg>
+                Generate
+              </button>
+              <button class="btn-ghost summary-btn" id="copySummaryBtn" title="Copy to clipboard" style="display:none">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                </svg>
+                Copy
+              </button>
+            </div>
+          </div>
+          <div class="summary-body hidden" id="summaryBody">
+            <textarea class="summary-textarea" id="summaryTextarea" readonly placeholder="Click "Generate" to compile your weekly summary…"></textarea>
+          </div>
+          <div class="summary-empty" id="summaryEmpty">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/>
+              <line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/>
+              <line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
+            </svg>
+            <p>Fill in your daily entries, then click <strong>Generate</strong> to compile your weekly summary.</p>
+          </div>
+        </div>
+      </div>
+
+
+    </main>
+  </div>
+
+
+  <!-- ── Create Modal ── -->
+  <div class="modal-overlay hidden" id="modalOverlay">
+    <div class="modal" id="modal">
+      <div class="modal-header">
+        <h3>Create New Logbook</h3>
+        <button class="modal-close" id="modalClose" aria-label="Close">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <label for="weekInput">Week Number</label>
+        <div class="input-group">
+          <input type="number" id="weekInput" min="1" max="999" placeholder="1" autocomplete="off" />
+        </div>
+        <p class="modal-hint">Assign a number to this logbook (e.g. Week 1, Week 2…)</p>
+        <div class="modal-error hidden" id="modalError"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-ghost" id="modalCancelBtn">Cancel</button>
+        <button class="btn-primary" id="modalCreateBtn">Create Logbook</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Delete Confirm Modal ── -->
+  <div class="modal-overlay hidden" id="deleteOverlay">
+    <div class="modal modal-sm">
+      <div class="modal-header">
+        <h3>Delete Logbook</h3>
+      </div>
+      <div class="modal-body">
+        <p id="deleteConfirmText">Are you sure you want to delete <strong>Week X</strong>?</p>
+        <p class="modal-hint" style="margin-top:4px">This action cannot be undone.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-ghost" id="deleteCancelBtn">Cancel</button>
+        <button class="btn-danger" id="deleteConfirmBtn">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Toast ── -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
